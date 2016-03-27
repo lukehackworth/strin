@@ -2,6 +2,7 @@
 
 import string
 import random
+import time
 
 
 def main():
@@ -18,34 +19,52 @@ def main():
 
     while True:
         machine_count = 6
-        machine_string_array = []
-
-        for i in range(machine_count):
-            machine_string_array.append(machine_string)
+        machine_string_array = create_machine_string_array(
+            machine_string, machine_count
+        )
 
         letter_flip_probability = 5  # percent~
-        bastard_array = []
-        for machine in machine_string_array:
-            bastard_array.append(
-                mutate_string(machine, letter_flip_probability)
-            )
+        machine_string_array = mutate_array_strings(
+            machine_string_array, letter_flip_probability
+        )
 
-        machine_string_array = bastard_array
+        averaged_num_array = create_array_average(machine_string_array)
 
-        bastard_array = []
-        for machine in machine_string_array:
-            tmp = array_average(string_to_num_array(machine))
-            bastard_array.append(tmp)
         print(machine_string_array)
-        print(bastard_array)
+        print(averaged_num_array)
 
         placeholder = 10.0
         placeholder2 = int
-        for idx, val in enumerate(bastard_array):
+        for idx, val in enumerate(averaged_num_array):
             test2 = abs(val / input_array_average)
             if(test2 < placeholder):
                 placeholder2 = idx
         machine_string = machine_string_array[placeholder2]
+
+
+def create_array_average(input_array):
+    output_array = []
+    for input_string in input_array:
+        num_array = string_to_num_array(input_string)
+        num_array_avg = array_average(num_array)
+        output_array.append(num_array_avg)
+    return output_array
+
+
+def mutate_array_strings(machine_string_array, letter_flip_probability):
+    output_array = []
+    for machine in machine_string_array:
+        output_array.append(
+            mutate_string(machine, letter_flip_probability)
+        )
+    return output_array
+
+
+def create_machine_string_array(machine_string, machine_count):
+    machine_string_array = []
+    for i in range(machine_count):
+            machine_string_array.append(machine_string)
+    return machine_string_array
 
 
 def mutate_string(instring, rand_probability):

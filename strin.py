@@ -18,7 +18,7 @@ def main():
     machine_string = randomize_string(input_string)
     print("machine_string = " + machine_string)
 
-    letter_flip_probability = 5  # percent~
+    letter_flip_probability = 7  # percent~
 
     while True:
         machine_count = 200

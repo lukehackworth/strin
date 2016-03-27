@@ -13,36 +13,30 @@ def main():
     print("Input number array: " + str(input_num_array))
 
     input_array_average = array_average(input_num_array)
-    print("Array average: " + str(input_array_average))
     time.sleep(3)
 
     machine_string = randomize_string(input_string)
     print("machine_string = " + machine_string)
 
+    letter_flip_probability = 5  # percent~
+
     while True:
-        machine_count = 200
+        machine_count = 7
         machine_string_array = create_machine_string_array(
             machine_string, machine_count
         )
 
-        letter_flip_probability = 5  # percent~
         machine_string_array = mutate_array_strings(
             machine_string_array, letter_flip_probability
         )
 
-        output = []
-        for mch_str in machine_string_array:
-            output.append(string_to_num_array(mch_str))
+        print("machine_string_array: " + str(machine_string_array))
 
-        output2 = []
-        for num_list in output:
-            j = dist_find(num_list, input_num_array)
-            output2.append(j)
+        output = string_array_to_num_array(machine_string_array)
 
-        output3 = []
-        for num_list in output2:
-            j = array_average(num_list)
-            output3.append(j)
+        output2 = num_list_dist_find(output, input_num_array)
+
+        output3 = create_averaged_num_array(output2)
 
         m = min(output3)
         for idx, val in enumerate(output3):
@@ -51,6 +45,33 @@ def main():
         print(machine_string)
         if(m == 0):
             sys.exit()
+
+
+def create_averaged_num_array(input_array):
+    # Given array of arrays of numbers, return array of averaged numbers
+    output = []
+    for num_list in input_array:
+        j = array_average(num_list)
+        output.append(j)
+    return output
+
+
+def num_list_dist_find(input_list, compare_list):
+    # given array of array of numbers, return array with list of
+    # distances from same idx points in compare_list
+    output = []
+    for num_list in input_list:
+        j = dist_find(num_list, compare_list)
+        output.append(j)
+    return output
+
+
+def string_array_to_num_array(in_string_array):
+    output = []
+    for instring in in_string_array:
+        num_array = string_to_num_array(instring)
+        output.append(num_array)
+    return output
 
 
 def dist_find(array1, array2):

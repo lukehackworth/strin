@@ -5,6 +5,7 @@ import random
 import time
 import sys
 
+
 def main():
     input_string = input("Enter the goal string: ")
 
@@ -28,22 +29,21 @@ def main():
         machine_string_array = mutate_array_strings(
             machine_string_array, letter_flip_probability
         )
-        
+
         output = []
         for mch_str in machine_string_array:
-            #mch_str_num_array = string_to_num_array(mch_str)
             output.append(string_to_num_array(mch_str))
-        
+
         output2 = []
         for num_list in output:
             j = dist_find(num_list, input_num_array)
             output2.append(j)
-            
+
         output3 = []
         for num_list in output2:
             j = array_average(num_list)
             output3.append(j)
-        
+
         m = min(output3)
         for idx, val in enumerate(output3):
             if val == m:
@@ -51,18 +51,10 @@ def main():
         print(machine_string)
         if(m == 0):
             sys.exit()
-        #average_dist_array = create_dist_averaged_array(machine_string_array)
-        
-        #averaged_num_array = create_array_average(machine_string_array, input_array_average)
 
-        #print(machine_string_array)
-        #print(averaged_num_array)
-
-        #machine_string = machine_string_array[find_best_string(
-        #    averaged_num_array, input_array_average)]
 
 def dist_find(array1, array2):
-    # given two arrays of numbers, find average of both arrays for each 
+    # given two arrays of numbers, find average of both arrays for each
     # thing in list.
     # eg 1 = [a, b]; 2 = [b, c]; output = [abs(a-b), abs(b-c)]
     output = []
@@ -70,6 +62,7 @@ def dist_find(array1, array2):
         m = abs(val - array2[idx])
         output.append(m)
     return(output)
+
 
 def create_dist_averaged_array(array_to_average, input_array_average):
     output_array = []

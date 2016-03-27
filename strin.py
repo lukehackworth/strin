@@ -3,7 +3,7 @@
 import string
 import random
 import time
-
+import sys
 
 def main():
     input_string = input("Enter the goal string: ")
@@ -19,7 +19,7 @@ def main():
     print("machine_string = " + machine_string)
 
     while True:
-        machine_count = 20
+        machine_count = 200
         machine_string_array = create_machine_string_array(
             machine_string, machine_count
         )
@@ -48,8 +48,9 @@ def main():
         for idx, val in enumerate(output3):
             if val == m:
                 machine_string = machine_string_array[idx]
-        print(str(machine_string_array))
         print(machine_string)
+        if(m == 0):
+            sys.exit()
         #average_dist_array = create_dist_averaged_array(machine_string_array)
         
         #averaged_num_array = create_array_average(machine_string_array, input_array_average)

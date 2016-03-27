@@ -21,7 +21,7 @@ def main():
     letter_flip_probability = 5  # percent~
 
     while True:
-        machine_count = 7
+        machine_count = 200
         machine_string_array = create_machine_string_array(
             machine_string, machine_count
         )
@@ -29,8 +29,6 @@ def main():
         machine_string_array = mutate_array_strings(
             machine_string_array, letter_flip_probability
         )
-
-        print("machine_string_array: " + str(machine_string_array))
 
         output = string_array_to_num_array(machine_string_array)
 

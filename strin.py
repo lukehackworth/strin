@@ -115,9 +115,12 @@ def create_array_average(input_array):
 
 def mutate_array_strings(machine_string_array, letter_flip_probability):
     output_array = []
-    for machine in machine_string_array:
-        output_array.append(
-            mutate_string(machine, letter_flip_probability)
+    for idx, machine in enumerate(machine_string_array):
+        if(idx == 0):
+            output_array.append(machine)
+        else:
+            output_array.append(
+                mutate_string(machine, letter_flip_probability)
         )
     return output_array
 

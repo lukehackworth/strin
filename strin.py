@@ -13,12 +13,13 @@ def main():
 
     input_array_average = array_average(input_num_array)
     print("Array average: " + str(input_array_average))
+    time.sleep(3)
 
     machine_string = randomize_string(input_string)
     print("machine_string = " + machine_string)
 
     while True:
-        machine_count = 6
+        machine_count = 20
         machine_string_array = create_machine_string_array(
             machine_string, machine_count
         )
@@ -32,13 +33,15 @@ def main():
 
         print(machine_string_array)
         print(averaged_num_array)
-
         placeholder = 10.0
-        placeholder2 = int
+        placeholder2 = 0
         for idx, val in enumerate(averaged_num_array):
-            test2 = abs(val / input_array_average)
-            if(test2 < placeholder):
+            dist = abs(val - input_array_average)
+            #print("dist is " + str(dist))
+            if(dist < placeholder):
                 placeholder2 = idx
+                placeholder = dist
+                
         machine_string = machine_string_array[placeholder2]
 
 

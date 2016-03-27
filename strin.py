@@ -33,12 +33,14 @@ def main():
 
         print(machine_string_array)
         print(averaged_num_array)
-        
-        machine_string = machine_string_array[find_best_string(averaged_num_array, input_array_average)]
+
+        machine_string = machine_string_array[find_best_string(
+            averaged_num_array, input_array_average)]
 
 
 def find_best_string(tmp_array, input_array_average):
-    # For given array of numbers, find int where tmp_array[return_value] is closest to averaged_num_array
+    # For given array of numbers, find int
+    # where tmp_array[return_value] is closest to averaged_num_array
     placeholder = 10.0
     placeholder2 = 0
     for idx, val in enumerate(tmp_array):

@@ -30,12 +30,40 @@ def main():
             machine_string_array, letter_flip_probability
         )
 
-        output = string_array_to_num_array(machine_string_array)
+        machine_num_array = string_array_to_num_array(machine_string_array)
 
-        output2 = num_list_dist_find(output, input_num_array)
+        machine_dist_array = num_list_dist_find(machine_num_array, input_num_array)
 
-        output3 = create_averaged_num_array(output2)
+        output3 = create_averaged_num_array(machine_dist_array)
 
+        #finds first and second best ones
+        m = min(output3)
+        j = 0
+        for idx, val in enumerate(output3):
+            if val == m:
+                j = idx
+        k = output3[j]
+        n = output3[find_second_min_from_array(output3)]
+        
+        bred_machines = breed(machine_num_array, j, find_second_min_from_array(output3))
+        
+        #print(str(k) + " " + str(n))
+        #print("min:\t\t" + str(machine_num_array[j]))
+        #print("second min:\t" + str(machine_num_array[find_second_min_from_array(output3)]))
+        #print("bred array:\t" + str(bred_machines))
+        
+        #Recalculates after breeding machine
+        machine_num_array.pop()
+        machine_num_array.append(bred_machines)
+        #print("Pre: " + str(machine_string_array))
+        machine_string_array = num_array_to_string_array(machine_num_array)
+        #print("Post: " + str(machine_string_array))
+        
+        machine_dist_array = num_list_dist_find(machine_num_array, input_num_array)
+
+        output3 = create_averaged_num_array(machine_dist_array)
+        
+        #Assigns the number closest to base array as new machien string
         m = min(output3)
         for idx, val in enumerate(output3):
             if val == m:
@@ -44,6 +72,37 @@ def main():
         if(m == 0):
             sys.exit()
 
+def num_array_to_string_array(input_num_array):
+    string_array = []
+    output = []
+    for num_array in input_num_array:
+        out = ""
+        for num in num_array:
+            m = chr(num)
+            out += m
+        string_array.append(out)
+    return string_array
+
+def breed(input_num_array, best_min_idx, sec_min_idx):
+    output = []
+    for idx, val in enumerate(input_num_array[0]):
+        n = abs((input_num_array[best_min_idx][idx] + input_num_array[sec_min_idx][idx])/2)
+        output.append(int(n))
+    return output
+
+def find_second_min_from_array(input_array):
+        m1 = 500000
+        m2 = 500000
+        goal, not_goal = 0, 0
+        for idx, val in enumerate(input_array):
+            if val < m2:
+                if val <= m1:
+                    m1, m2 = val, m1
+                    
+                else:
+                    m2 = val
+                    goal = idx
+        return goal
 
 def create_averaged_num_array(input_array):
     # Given array of arrays of numbers, return array of averaged numbers
